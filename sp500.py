@@ -9,9 +9,24 @@ from data import data
 
 #data.updateSP500()
 
-sp500 = pd.read_csv('sp500.csv').to_numpy()
+ticker_sp = '^GSPC'
+ticker_dow = '^DJI'
 
-print(sp500[0:10])
+today = date.today()
+start_date = "2000-01-01"
 
-#plt.plot(sp500)
-#plt.show()
+data_sp = pdr.get_data_yahoo(ticker_sp, start=start_date, end=today)
+data_dow = pdr.get_data_yahoo(ticker_dow, start=start_date, end=today)
+
+prices_sp = data_sp['Adj Close']
+prices_dow = data_dow['Adj Close']
+
+max_price_sp = max(prices_sp)
+max_price_dow = max(prices_dow)
+
+plt.plot(prices_sp/max_price_sp)
+plt.plot(prices_dow/max_price_dow)
+
+plt.legend(['S&P500', 'DOW JONES'])
+
+plt.show()
