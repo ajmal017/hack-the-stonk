@@ -30,16 +30,17 @@ def getNormalisedData (ticker):
     return normalisedData
 
 
-#plt.plot(prices_sp/max_price_sp)
-plt.plot(getNormalisedData(ticker_dow))
+plt.plot(getNormalisedData(ticker_sp))
+#plt.plot(getNormalisedData(ticker_dow))
 #plt.plot(prices_nasdaq/max_price_nasdaq)
 #plt.plot(getNormalisedData(ticker_dax))
 #plt.plot(getNormalisedData(ticker_nikkei))
 #plt.plot(getNormalisedData(ticker_ibex))
-plt.plot(getNormalisedData(ticker_gold))
+#plt.plot(getNormalisedData(ticker_gold))
 #plt.plot(getNormalisedData(ticker_silver))
 plt.plot(getNormalisedData(ticker_oil))
 
-plt.legend(['DOW JONES', 'GOLD', 'OIL'])
+plt.legend(['SP500', 'OIL'])
 
+print(getNormalisedData(ticker_oil))
 plt.show()
