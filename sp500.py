@@ -5,7 +5,6 @@ yf.pdr_override()
 import pandas as pd
 import matplotlib.pyplot as plt 
 
-from data import data
 
 #data.updateSP500()
 
