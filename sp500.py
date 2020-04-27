@@ -18,7 +18,7 @@ ticker_gold = 'GC=F'
 ticker_silver = 'SI=F'
 ticker_oil = 'CL=F'
 
-today = date.today()
+today = date.end_date()
 start_date = "2000-01-01"
 
 def getNormalisedData (ticker):

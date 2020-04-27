@@ -5,51 +5,73 @@ yf.pdr_override()
 import pandas as pd
 import matplotlib.pyplot as plt 
 import math
+import quandl
 
 ticker_sp = '^GSPC'
 ticker_gold = 'GC=F'
 ticker_oil = 'CL=F'
 ticker_dax = '^GDAXI'
 ticker_nikkei = '^N225'
+quandl_gold = 'LBMA/GOLD'
 
-today = date.today()
-start_date = "1950-01-01"
+auth_tok = "Nv1rJgRR7u88iz_dg7Y6"
 
-def getRawData (ticker):
-    data = pdr.get_data_yahoo(ticker, start=start_date, end=today)
-    return data
+end_date = "2020-01-01"
+start_date = "1975-01-01"
 
-def getPriceAndVolume (ticker, name):
-    data = pdr.get_data_yahoo(ticker, start=start_date, end=today)
+
+def getGOLDData ():
+    # Contains only prices in USD
+
+    data = quandl.get("CHRIS/CME_GC1", trim_start = start_date, trim_end = end_date, authtoken=auth_tok)
+    data = data[['Last', 'Volume']]
+    data.columns = ["GOLD Adj Close", "GOLD Volume"]
+    return data.dropna()
+
+def getSPData():
+    # Contains price and volume
+
+    data = pdr.get_data_yahoo(ticker_sp, start=start_date, end=end_date)
     data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
-    data.columns = [name + ' Adj Close', name +' Volume']
+    data.columns = ["SP500 Adj Close",  "SP500 Volume"]
     return data
 
-def getPrice (ticker, name):
-    data = pdr.get_data_yahoo(ticker, start=start_date, end=today)
-    data = data[data.columns[4:5]] # Takes only Adj. Close and Volume
-    data.columns = [name + ' Adj Close']
+#TODO: increase timeframe
+def getDAXData():
+    # Contains price and volume
+
+    data = pdr.get_data_yahoo(ticker_dax, start=start_date, end=end_date)
+    data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
+    data.columns = ["DAX Adj Close",  "DAX Volume"]
     return data
+
+#TODO: increase timeframe
+def getOILData():
+    # Contains only price
+
+    data = quandl.get("FRED/DCOILBRENTEU", trim_start = start_date, trim_end = end_date, authtoken=auth_tok)
+    data.columns=["OIL Adj Close"]
+    return data.dropna()
+
+#TODO: find volume data
+def getNIKKEIData():
+    # Contains only price
+
+    data = pdr.get_data_yahoo(ticker_nikkei, start=start_date, end=end_date)
+    data = data[data.columns[4:5]] # Takes only Adj. Close 
+    data.columns = ["NIKKEI Adj Close"]
+    return data
+
 
 def checkData (data):
+    counter = 0
     for index, row in data.iterrows():
         for item in row:
             if (math.isnan(item)):
-                return False
-    return True
-            
-def buildDataSet():
-    sp = getPriceAndVolume(ticker_sp, "SP500")
-    gold = getPrice(ticker_gold, "Gold")
-    oil = getPrice(ticker_oil, "USA Oil")
-    dax = getPriceAndVolume(ticker_dax, "DAX")
-    nikkei = getPriceAndVolume(ticker_nikkei, "NIKKEI")
+                counter += 1
+                print(row)
+    return counter
+        
 
+print(getGOLDData())
 
-
-sp = getPriceAndVolume(ticker_sp, "SP500")
-gold = getPrice(ticker_gold, "Gold")
-oil = getPrice(ticker_oil, "USA Oil")
-dax = getPriceAndVolume(ticker_dax, "DAX")
-nikkei = getPriceAndVolume(ticker_nikkei, "NIKKEI")
-print(nikkei)
