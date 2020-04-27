@@ -13,7 +13,7 @@ ticker_dax = '^GDAXI'
 ticker_nikkei = '^N225'
 
 today = date.today()
-start_date = "1970-01-02"
+start_date = "1950-01-01"
 
 def getRawData (ticker):
     data = pdr.get_data_yahoo(ticker, start=start_date, end=today)
@@ -48,8 +48,8 @@ def buildDataSet():
 
 
 sp = getPriceAndVolume(ticker_sp, "SP500")
-#gold = getPrice(ticker_gold, "Gold")
-#oil = getPrice(ticker_oil, "USA Oil")
-#dax = getPriceAndVolume(ticker_dax, "DAX")
-#nikkei = getPriceAndVolume(ticker_nikkei, "NIKKEI")
-print(sp)
+gold = getPrice(ticker_gold, "Gold")
+oil = getPrice(ticker_oil, "USA Oil")
+dax = getPriceAndVolume(ticker_dax, "DAX")
+nikkei = getPriceAndVolume(ticker_nikkei, "NIKKEI")
+print(nikkei)
