@@ -31,44 +31,45 @@ def getGOLDData ():
 def getSPData():
     # Contains price and volume
     data = pdr.get_data_yahoo(ticker_sp, start=start_date, end=end_date)
-    data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
+    data = data[data.columns[4:6]] 
     data.columns = ["SP500 Adj Close",  "SP500 Volume"]
     return data
 
 def getDAXData():
     # Contains price and volume
     data = pdr.get_data_yahoo(ticker_dax, start=start_date, end=end_date)
-    data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
+    data = data[data.columns[4:6]]
     data.columns = ["DAX Adj Close",  "DAX Volume"]
     return data
 
 
 def getOILData():
     # Contains price and volume
-
     data = quandl.get("CHRIS/CME_CL1", trim_start = start_date, trim_end = end_date, authtoken=auth_tok)
     data = data[["Last", "Volume"]]
     data.columns=["OIL Adj Close", "OIL Volume"]
     return data.dropna()
 
-#TODO: Increase timeframe
+
 def getNIKKEIData():
     # Contains only price
     data = pdr.get_data_yahoo(ticker_nikkei, start=start_date, end=end_date)
-    data = data[data.columns[4:5]] # Takes only Adj. Close 
+    data = data[data.columns[4:5]] 
     data.columns = ["NIKKEI Adj Close"]
     return data
 
 
 def getFTSEData():
+    # Contains price and volume
     data = pdr.get_data_yahoo(ticker_ftse, start=start_date, end=end_date)
-    data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
+    data = data[data.columns[4:6]] 
     data.columns = ["FTSE Adj Close",  "FTSE Volume"]
     return data
 
 def getSHANGHAIData():
+    # Contains only price
     data = pdr.get_data_yahoo(ticker_shanghai, start=start_date, end=end_date)
-    data = data[data.columns[4:5]] # Takes only Adj. Close and Volume
+    data = data[data.columns[4:5]] 
     data.columns = ["SHANGHAI Adj Close"]
     return data
 
