@@ -12,16 +12,17 @@ ticker_gold = 'GC=F'
 ticker_oil = 'CL=F'
 ticker_dax = '^GDAXI'
 ticker_nikkei = '^N225'
-quandl_gold = 'LBMA/GOLD'
+ticker_ftse = '^FTSE'
+ticker_shanghai = '000001.SS'
 
 auth_tok = "Nv1rJgRR7u88iz_dg7Y6"
 
 end_date = "2020-01-01"
-start_date = "1975-01-01"
+start_date = "2000-01-01"
 
 
 def getGOLDData ():
-    # Contains only prices in USD
+    # Contains price and volume
 
     data = quandl.get("CHRIS/CME_GC1", trim_start = start_date, trim_end = end_date, authtoken=auth_tok)
     data = data[['Last', 'Volume']]
@@ -35,7 +36,7 @@ def getSPData():
     data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
     data.columns = ["SP500 Adj Close",  "SP500 Volume"]
     return data
-
+'''
 #TODO: increase timeframe
 def getDAXData():
     # Contains price and volume
@@ -44,24 +45,32 @@ def getDAXData():
     data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
     data.columns = ["DAX Adj Close",  "DAX Volume"]
     return data
+'''
 
-#TODO: increase timeframe
 def getOILData():
-    # Contains only price
+    # Contains price and volume
 
-    data = quandl.get("FRED/DCOILBRENTEU", trim_start = start_date, trim_end = end_date, authtoken=auth_tok)
-    data.columns=["OIL Adj Close"]
+    data = quandl.get("CHRIS/CME_CL1", trim_start = start_date, trim_end = end_date, authtoken=auth_tok)
+    data = data[["Last", "Volume"]]
+    data.columns=["OIL Adj Close", "Volume"]
     return data.dropna()
 
+'''
 #TODO: find volume data
 def getNIKKEIData():
     # Contains only price
 
     data = pdr.get_data_yahoo(ticker_nikkei, start=start_date, end=end_date)
-    data = data[data.columns[4:5]] # Takes only Adj. Close 
-    data.columns = ["NIKKEI Adj Close"]
+    data = data[data.columns[4:6]] # Takes only Adj. Close 
+    #data.columns = ["NIKKEI Adj Close"]
     return data
+'''
 
+def getFTSEData():
+    data = pdr.get_data_yahoo(ticker_ftse, start=start_date, end=end_date)
+    data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
+    #data.columns = ["SP500 Adj Close",  "SP500 Volume"]
+    return data
 
 def checkData (data):
     counter = 0
@@ -71,7 +80,7 @@ def checkData (data):
                 counter += 1
                 print(row)
     return counter
-        
 
-print(getGOLDData())
+
+print(getFTSEData())
 
