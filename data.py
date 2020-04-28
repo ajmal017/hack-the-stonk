@@ -17,13 +17,12 @@ ticker_shanghai = '000001.SS'
 
 auth_tok = "Nv1rJgRR7u88iz_dg7Y6"
 
-end_date = "2020-01-01"
+end_date = "2020-05-1"
 start_date = "2000-01-01"
 
 
 def getGOLDData ():
     # Contains price and volume
-
     data = quandl.get("CHRIS/CME_GC1", trim_start = start_date, trim_end = end_date, authtoken=auth_tok)
     data = data[['Last', 'Volume']]
     data.columns = ["GOLD Adj Close", "GOLD Volume"]
@@ -31,45 +30,46 @@ def getGOLDData ():
 
 def getSPData():
     # Contains price and volume
-
     data = pdr.get_data_yahoo(ticker_sp, start=start_date, end=end_date)
     data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
     data.columns = ["SP500 Adj Close",  "SP500 Volume"]
     return data
-'''
-#TODO: increase timeframe
+
 def getDAXData():
     # Contains price and volume
-
     data = pdr.get_data_yahoo(ticker_dax, start=start_date, end=end_date)
     data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
     data.columns = ["DAX Adj Close",  "DAX Volume"]
     return data
-'''
+
 
 def getOILData():
     # Contains price and volume
 
     data = quandl.get("CHRIS/CME_CL1", trim_start = start_date, trim_end = end_date, authtoken=auth_tok)
     data = data[["Last", "Volume"]]
-    data.columns=["OIL Adj Close", "Volume"]
+    data.columns=["OIL Adj Close", "OIL Volume"]
     return data.dropna()
 
-'''
-#TODO: find volume data
+#TODO: Increase timeframe
 def getNIKKEIData():
     # Contains only price
-
     data = pdr.get_data_yahoo(ticker_nikkei, start=start_date, end=end_date)
-    data = data[data.columns[4:6]] # Takes only Adj. Close 
-    #data.columns = ["NIKKEI Adj Close"]
+    data = data[data.columns[4:5]] # Takes only Adj. Close 
+    data.columns = ["NIKKEI Adj Close"]
     return data
-'''
+
 
 def getFTSEData():
     data = pdr.get_data_yahoo(ticker_ftse, start=start_date, end=end_date)
     data = data[data.columns[4:6]] # Takes only Adj. Close and Volume
-    #data.columns = ["SP500 Adj Close",  "SP500 Volume"]
+    data.columns = ["FTSE Adj Close",  "FTSE Volume"]
+    return data
+
+def getSHANGHAIData():
+    data = pdr.get_data_yahoo(ticker_shanghai, start=start_date, end=end_date)
+    data = data[data.columns[4:5]] # Takes only Adj. Close and Volume
+    data.columns = ["SHANGHAI Adj Close"]
     return data
 
 def checkData (data):
@@ -78,9 +78,21 @@ def checkData (data):
         for item in row:
             if (math.isnan(item)):
                 counter += 1
-                print(row)
+                break
     return counter
 
+def normalizeData(data):
+    for column in data:
+        maxValue = max(data[column])
+        data[column] = data[column] / maxValue
 
-print(getFTSEData())
+def combineData():
+    allData = [getSPData(), getGOLDData(), getDAXData(), getOILData(), getNIKKEIData(), getSHANGHAIData(), getFTSEData()]
+    mergedData = pd.concat(allData, axis = 1)
+    print("REMOVED: {} DATA POINTS".format(checkData(mergedData)))
+    cleanData = mergedData.dropna()
+    normalizeData(cleanData)
+    return cleanData
+
+print(combineData())
 
