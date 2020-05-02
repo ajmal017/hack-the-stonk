@@ -123,6 +123,7 @@ size_historical = 15
 x_train = np.zeros((size_training, size_historical, size_day))
 x_test  = np.zeros((size_testing, size_historical, size_day))
 
+'''
 for index, row in data.iterrows():
 
     if (day_counter < len(x_train)):
@@ -131,16 +132,19 @@ for index, row in data.iterrows():
             for j in range (size_day):
                 x_train[day_counter][i][j] = data.iloc[day_counter+i][j]
             
-    #else:
-        # Append data to x_test
+    else:
+        for i in range (size_historical):
+            for j in range (size_day):
+                x_test[day_counter - len(x_train)][i][j] = data.iloc[day_counter + i][j]
     day_counter += 1
     print("{}% completed".format(int(100 * day_counter/data_size)), end = '\r')
 
 print(x_train)
-
+'''
 
 '''
 1 - Split data into training and testing
 2 - Prepare input and output data
 '''
 
+print(data.head(25))
