@@ -18,7 +18,7 @@ ticker_shanghai = '000001.SS'
 
 auth_tok = "Nv1rJgRR7u88iz_dg7Y6"
 
-end_date = "2020-05-1"
+end_date = "2020-06-1"
 start_date = "2000-01-01"
 
 
@@ -95,7 +95,7 @@ def combineData():
     cleanData = mergedData.dropna()
     normalizeData(cleanData)
     return cleanData
-
+'''
 data = combineData()
 
 print(data)
@@ -122,7 +122,7 @@ size_historical = 15
 
 x_train = np.zeros((size_training, size_historical, size_day))
 x_test  = np.zeros((size_testing, size_historical, size_day))
-
+'''
 '''
 for index, row in data.iterrows():
 
@@ -146,5 +146,6 @@ print(x_train)
 1 - Split data into training and testing
 2 - Prepare input and output data
 '''
-
-print(data.head(25))
+print(getNIKKEIData())
+plt.plot(getOILData()['OIL Volume'])
+plt.show()
