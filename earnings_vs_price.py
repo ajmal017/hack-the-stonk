@@ -8,7 +8,7 @@ import datetime
 
 api_key = "39909968fea57578dfad64131ffbc423"
 #ticker = str(input("Ticker: "))
-ticker = "DIS"
+ticker = "V"
 end_date = "2021-01-01"
 start_date = "1980-01-01"
 
@@ -56,6 +56,7 @@ axs[0].legend()
 
 axs[1].plot(pe_ratio)
 axs[1].set_title("{} - PE Ratio".format(ticker))
+axs[1].set_ylim(0,50)
 
 fig.tight_layout(pad=2)
 
