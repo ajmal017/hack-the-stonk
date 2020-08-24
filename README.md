@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100px" src="https://image.freepik.com/free-icon/graph_318-10306.jpg" align="center" alt="Algorithmic Trading" />
+ <img width="150" src="https://static.thenounproject.com/png/5639-200.png" align="center" alt="Algorithmic Trading" />
  <h2 align="center">Algorithmic Trading</h2>
 </p>
 
