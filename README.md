@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100px" src="https://i.pinimg.com/originals/23/6b/81/236b81d4c6d445fad5e2cd1b37511bf9.jpg" align="center" alt="Algorithmic Trading" />
+ <img width="100px" src="https://image.freepik.com/free-icon/graph_318-10306.jpg" align="center" alt="Algorithmic Trading" />
  <h2 align="center">Algorithmic Trading</h2>
 </p>
 
