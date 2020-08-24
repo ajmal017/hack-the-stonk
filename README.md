@@ -1,4 +1,7 @@
-# hack-the-stonk
+<p align="center">
+ <img width="100px" src="https://i.pinimg.com/originals/23/6b/81/236b81d4c6d445fad5e2cd1b37511bf9.jpg" align="center" alt="Algorithmic Trading" />
+ <h2 align="center">Algorithmic Trading</h2>
+</p>
 
 I have always been fascinated by the stock and bond markets as well as trading that takes place in them. In this repository I collect various little projects in which I try to improve my understanding of these markets through creative visualizations and data science. 
 
