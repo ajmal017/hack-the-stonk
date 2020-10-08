@@ -103,6 +103,7 @@ normalizeData(sp)
 
 plt.plot(gold['GOLD Adj Close'],label = 'Gold')
 plt.plot(sp['SP500 Adj Close'], label = 'SP500')
+
 plt.legend()
 plt.show()
 
